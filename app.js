@@ -1,93 +1,105 @@
-const express = require("express");
+const express = require('express');
+const path = require('path');
 
 const app = express();
-
 const PORT = 3000;
 
-app.set(
-    "view engine",
-    "ejs"
-);
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-app.use(
-    express.static("public")
-);
+app.set('view engine', 'ejs');
 
-app.use(
-    express.urlencoded({
-        extended: true
-    })
-);
+// =====================
+// ARRAY DATABASE
+// =====================
 
-const tasks = [
-    {
-        id: 1,
-        title: "Finish Assignment",
-        category: "School",
-        priority: "High",
-        description:
-            "Complete software development assignment."
-    },
+let taskList = [];
 
-    {
-        id: 2,
-        title: "Gym Session",
-        category: "Personal",
-        priority: "Medium",
-        description:
-            "Workout for 1 hour."
-    },
+// =====================
+// ROUTES
+// =====================
 
-    {
-        id: 3,
-        title: "Meeting",
-        category: "Work",
-        priority: "Low",
-        description:
-            "Attend weekly project meeting."
-    }
-];
+// HOME
+app.get('/', (req, res) => {
 
-app.get("/", (req, res) => {
-    res.render("index");
+    res.render('index');
+
 });
 
-app.get("/tasks", (req, res) => {
-    res.render(
-        "tasklist",
-        {
-            tasks
-        }
-    );
+// ADD TASK PAGE
+app.get('/add-task', (req, res) => {
+
+    res.render('addtask');
+
 });
 
-app.get("/add-task", (req, res) => {
-    res.render("addtask");
+// SAVE TASK
+app.post('/add-task', (req, res) => {
+
+    const {
+        title,
+        description,
+        dueDate,
+        priority
+    } = req.body;
+
+    const newTask = {
+
+        id: Date.now(),
+
+        title,
+
+        description,
+
+        dueDate,
+
+        priority,
+
+        completed: false
+    };
+
+    taskList.push(newTask);
+
+    console.log(taskList);
+
+    res.redirect('/tasks');
+
 });
 
-app.get("/task/:id", (req, res) => {
+// TASK LIST
+app.get('/tasks', (req, res) => {
+
+    res.render('tasklist', {
+        taskList
+    });
+
+});
+
+// TASK DETAILS
+app.get('/task/:id', (req, res) => {
+
+    const taskId =
+        Number(req.params.id);
 
     const task =
-        tasks.find(
-            t =>
-                t.id ==
-                req.params.id
+        taskList.find(
+            task =>
+                task.id === taskId
         );
 
     res.render(
-        "taskdetails",
-        {
-            task
-        }
+        'taskdetails',
+        { task }
     );
+
 });
 
-app.get("/profile", (req, res) => {
-    res.render("profile");
-});
-
+// START SERVER
 app.listen(PORT, () => {
+
     console.log(
         `Server running at http://localhost:${PORT}`
     );
+
 });
