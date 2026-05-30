@@ -3,6 +3,12 @@
 <head>
 
     <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Task Details</title>
 
     <link
@@ -19,38 +25,367 @@
         rel="stylesheet"
         href="/style.css"
     >
+
 </head>
 
 <body>
 
     <%- include("partials/navbar") %>
 
-    <div class="container py-5">
+    <main class="container-custom">
 
-        <div class="page-card">
+        <!-- HEADER -->
 
-            <h1>
-                <%= task.title %>
-            </h1>
+        <section
+            class="
+            d-flex
+            justify-content-between
+            align-items-center
+            flex-wrap
+            gap-3
+            mt-5
+            mb-4
+            "
+        >
 
-            <p>
-                <strong>Category:</strong>
-                <%= task.category %>
-            </p>
+            <div>
 
-            <p>
-                <strong>Priority:</strong>
-                <%= task.priority %>
-            </p>
+                <p
+                    class="
+                    text-primary
+                    fw-semibold
+                    mb-2
+                    "
+                >
 
-            <p>
-                <strong>Description:</strong>
-                <%= task.description %>
-            </p>
+                    Task Details
 
-        </div>
+                </p>
 
-    </div>
+                <h1
+                    class="
+                    fw-bold
+                    "
+                    style="
+                    font-size:3rem;
+                    "
+                >
+
+                    <%= task.title %>
+
+                </h1>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <div>
+
+                <span
+                    class="
+                    status
+                    <%= task.status.toLowerCase() %>
+                    "
+                >
+
+                    <%= task.status %>
+
+                </span>
+
+            </div>
+
+        </section>
+
+        <!-- MAIN CARD -->
+
+        <section class="card-ui p-5">
+
+            <!-- DESCRIPTION -->
+
+            <div class="mb-5">
+
+                <h4
+                    class="
+                    fw-bold
+                    mb-3
+                    "
+                >
+
+                    Description
+
+                </h4>
+
+                <div
+                    class="
+                    task-description-box
+                    "
+                >
+
+                    <%= task.description || "No description added." %>
+
+                </div>
+
+            </div>
+
+            <!-- INFO CARDS -->
+
+            <div class="row g-4">
+
+                <!-- CATEGORY -->
+
+                <div class="col-lg-4">
+
+                    <div
+                        class="
+                        details-card
+                        "
+                    >
+
+                        <div
+                            class="
+                            details-icon
+                            blue-bg
+                            "
+                        >
+
+                            <i
+                                class="
+                                bi
+                                bi-folder2-open
+                                "
+                            ></i>
+
+                        </div>
+
+                        <h5
+                            class="
+                            fw-bold
+                            mt-3
+                            "
+                        >
+
+                            Category
+
+                        </h5>
+
+                        <span
+                            class="
+                            tag
+                            blue-tag
+                            "
+                        >
+
+                            <%= task.category || "General" %>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- PRIORITY -->
+
+                <div class="col-lg-4">
+
+                    <div
+                        class="
+                        details-card
+                        "
+                    >
+
+                        <div
+                            class="
+                            details-icon
+                            orange-bg
+                            "
+                        >
+
+                            <i
+                                class="
+                                bi
+                                bi-flag
+                                "
+                            ></i>
+
+                        </div>
+
+                        <h5
+                            class="
+                            fw-bold
+                            mt-3
+                            "
+                        >
+
+                            Priority
+
+                        </h5>
+
+                        <span
+                            class="
+                            priority
+                            <%= task.priority.toLowerCase() %>
+                            "
+                        >
+
+                            <%= task.priority %>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- DATE -->
+
+                <div class="col-lg-4">
+
+                    <div
+                        class="
+                        details-card
+                        "
+                    >
+
+                        <div
+                            class="
+                            details-icon
+                            green-bg
+                            "
+                        >
+
+                            <i
+                                class="
+                                bi
+                                bi-calendar-event
+                                "
+                            ></i>
+
+                        </div>
+
+                        <h5
+                            class="
+                            fw-bold
+                            mt-3
+                            "
+                        >
+
+                            Due Date
+
+                        </h5>
+
+                        <p class="text-secondary">
+
+                            <%= task.dueDate || "No due date" %>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTION BUTTONS -->
+
+            <div
+                class="
+                d-flex
+                gap-3
+                flex-wrap
+                mt-5
+                "
+            >
+
+                <!-- EDIT -->
+
+                <a
+                    href="/task/edit/<%= task.id %>"
+                    class="
+                    btn
+                    add-btn
+                    "
+                >
+
+                    <i
+                        class="
+                        bi
+                        bi-pencil-square
+                        me-2
+                        "
+                    ></i>
+
+                    Edit Task
+
+                </a>
+
+                <!-- COMPLETE -->
+
+                <% if(task.status !== "Completed"){ %>
+
+                <form
+                    action="/task/complete/<%= task.id %>"
+                    method="POST"
+                >
+
+                    <button
+                        class="
+                        btn
+                        btn-success
+                        rounded-4
+                        px-4
+                        "
+                    >
+
+                        Complete
+
+                    </button>
+
+                </form>
+
+                <% } %>
+
+                <!-- DELETE -->
+
+                <form
+                    action="/task/delete/<%= task.id %>"
+                    method="POST"
+                >
+
+                    <button
+                        class="
+                        btn
+                        btn-outline-danger
+                        rounded-4
+                        px-4
+                        "
+                    >
+
+                        Delete
+
+                    </button>
+
+                </form>
+
+                <!-- BACK -->
+
+                <a
+                    href="/tasks"
+                    class="
+                    btn
+                    btn-light
+                    rounded-4
+                    px-4
+                    "
+                >
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
 
     <%- include("partials/footer") %>
 

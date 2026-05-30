@@ -1,24 +1,17 @@
-<nav
-    class="
-    navbar
-    navbar-expand-lg
-    custom-navbar
-    px-5
-    "
->
+<nav class="custom-navbar">
 
-    <div class="container-fluid">
+    <div class="nav-container">
+
+        <!-- LEFT -->
 
         <a
-            class="
-            navbar-brand
-            d-flex
-            align-items-center
-            "
             href="/"
+            class="
+            logo-wrap
+            "
         >
 
-            <div class="logo-circle">
+            <div class="logo-icon">
 
                 <i
                     class="
@@ -29,76 +22,79 @@
 
             </div>
 
-            <span
-                class="
-                brand-text
-                ms-3
-                "
-            >
-                Tudu
-            </span>
+            <div>
+
+                <div class="logo-text">
+
+                    Tudu
+
+                </div>
+
+                <small
+                    class="
+                    text-secondary
+                    "
+                >
+
+                    Productivity App
+
+                </small>
+
+            </div>
 
         </a>
 
-        <button
-            class="
-            navbar-toggler
-            "
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-        >
-            <span
-                class="
-                navbar-toggler-icon
-                "
-            ></span>
-        </button>
+        <!-- RIGHT -->
 
-        <div
-            class="
-            collapse
-            navbar-collapse
-            justify-content-end
-            "
-            id="navbarNav"
-        >
+        <div class="nav-menu">
 
-            <ul
+            <!-- DASHBOARD -->
+
+            <a
+                href="/"
                 class="
-                navbar-nav
-                align-items-center
+                nav-link-custom
                 "
             >
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="/"
-                    >
-                        Home
-                    </a>
-                </li>
+                Dashboard
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="/"
-                    >
-                        Tasks
-                    </a>
-                </li>
+            </a>
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="/"
-                    >
-                        Add Tasks
-                    </a>
-                </li>
+            <!-- TASKS -->
 
-            </ul>
+            <a
+                href="/tasks"
+                class="
+                nav-link-custom
+                "
+            >
+
+                Tasks
+
+            </a>
+
+            <!-- ADD -->
+
+            <a
+                href="/add-task"
+                class="
+                btn
+                add-btn
+                "
+            >
+
+                <i
+                    class="
+                    bi
+                    bi-plus-lg
+                    me-2
+                    "
+                ></i>
+
+                Add Task
+
+            </a>
 
         </div>
 

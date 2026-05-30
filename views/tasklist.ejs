@@ -3,6 +3,12 @@
 <head>
 
     <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Tasks</title>
 
     <link
@@ -19,56 +25,464 @@
         rel="stylesheet"
         href="/style.css"
     >
+
 </head>
 
 <body>
 
     <%- include("partials/navbar") %>
 
-    <div class="container py-5">
+    <main class="container-custom">
 
-        <h1 class="mb-4">
-            Your Tasks
-        </h1>
+        <!-- HEADER -->
 
-        <div class="row g-4">
+        <section class="text-center mt-5 mb-5">
 
-            <% tasks.forEach(task => { %>
+            <h1
+                class="
+                fw-bold
+                mb-2
+                "
+                style="
+                font-size:3rem;
+                "
+            >
 
-                <div class="col-lg-4">
+                Manage Your Tasks
 
-                    <div class="task-card">
+            </h1>
 
-                        <h3>
-                            <%= task.title %>
-                        </h3>
+            <p class="text-secondary">
 
-                        <p>
-                            <%= task.category %>
-                        </p>
+                Organize and manage
+                productivity.
 
-                        <span class="badge bg-warning text-dark">
-                            <%= task.priority %>
-                        </span>
+            </p>
 
-                        <br><br>
+        </section>
 
-                        <a
-                            href="/task/<%= task.id %>"
-                            class="btn gold-btn"
+        <!-- SEARCH -->
+
+        <section
+            class="
+            card-ui
+            mb-4
+            "
+        >
+
+            <form
+                action="/tasks"
+                method="GET"
+            >
+
+                <div
+                    class="
+                    row
+                    g-3
+                    align-items-center
+                    "
+                >
+
+                    <!-- SEARCH -->
+
+                    <div class="col-lg-8">
+
+                        <div
+                            class="
+                            position-relative
+                            "
                         >
-                            View Details
-                        </a>
+
+                            <i
+                                class="
+                                bi
+                                bi-search
+                                position-absolute
+                                "
+                                style="
+                                top:50%;
+                                left:22px;
+                                transform:translateY(-50%);
+                                color:#64748B;
+                                "
+                            ></i>
+
+                            <input
+                                type="text"
+                                name="search"
+                                value="<%= search %>"
+                                class="
+                                form-control
+                                search-input
+                                "
+                                placeholder="Search tasks..."
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- FILTER -->
+
+                    <div class="col-lg-4">
+
+                        <select
+                            name="filter"
+                            class="
+                            form-select
+                            filter-select
+                            "
+                        >
+
+                            <option value="All">
+
+                                All Tasks
+
+                            </option>
+
+                            <option
+                                value="Pending"
+                                <%= filter === "Pending" ? "selected" : "" %>
+                            >
+
+                                Pending
+
+                            </option>
+
+                            <option
+                                value="Completed"
+                                <%= filter === "Completed" ? "selected" : "" %>
+                            >
+
+                                Completed
+
+                            </option>
+
+                            <option
+                                value="Overdue"
+                                <%= filter === "Overdue" ? "selected" : "" %>
+                            >
+
+                                Overdue
+
+                            </option>
+
+                        </select>
 
                     </div>
 
                 </div>
 
-            <% }) %>
+            </form>
 
-        </div>
+        </section>
 
-    </div>
+        <!-- TASK TABLE -->
+
+        <section class="card-ui">
+
+            <div
+                class="
+                d-flex
+                justify-content-between
+                align-items-center
+                mb-4
+                "
+            >
+
+                <h3 class="fw-bold">
+
+                    All Tasks
+
+                </h3>
+
+                <a
+                    href="/add-task"
+                    class="
+                    btn
+                    add-btn
+                    "
+                >
+
+                    + Add Task
+
+                </a>
+
+            </div>
+
+            <% if(taskList.length === 0){ %>
+
+            <!-- EMPTY -->
+
+            <div
+                class="
+                text-center
+                py-5
+                "
+            >
+
+                <i
+                    class="
+                    bi
+                    bi-clipboard-x
+                    "
+                    style="
+                    font-size:4rem;
+                    color:#CBD5E1;
+                    "
+                ></i>
+
+                <h3
+                    class="
+                    fw-bold
+                    mt-3
+                    "
+                >
+
+                    No Tasks Found
+
+                </h3>
+
+                <p class="text-secondary">
+
+                    Start by adding
+                    your first task 🚀
+
+                </p>
+
+                <a
+                    href="/add-task"
+                    class="
+                    btn
+                    add-btn
+                    mt-3
+                    "
+                >
+
+                    Add Task
+
+                </a>
+
+            </div>
+
+            <% } else { %>
+
+            <div class="table-responsive">
+
+                <table class="task-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Task</th>
+                            <th>Category</th>
+                            <th>Priority</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <% taskList.forEach(task => { %>
+
+                    <tr>
+
+                        <!-- TASK -->
+
+                        <td>
+
+                            <div
+                                class="
+                                task-title
+                                "
+                            >
+
+                                <%= task.title %>
+
+                            </div>
+
+                            <div
+                                class="
+                                task-description
+                                "
+                            >
+
+                                <%= task.description || "No description" %>
+
+                            </div>
+
+                        </td>
+
+                        <!-- CATEGORY -->
+
+                        <td>
+
+                            <span
+                                class="
+                                tag
+                                blue-tag
+                                "
+                            >
+
+                                <%= task.category %>
+
+                            </span>
+
+                        </td>
+
+                        <!-- PRIORITY -->
+
+                        <td>
+
+                            <span
+                                class="
+                                priority
+                                <%= task.priority.toLowerCase() %>
+                                "
+                            >
+
+                                <%= task.priority %>
+
+                            </span>
+
+                        </td>
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            <%= task.dueDate || "No date" %>
+
+                        </td>
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span
+                                class="
+                                status
+                                <%= task.status.toLowerCase() %>
+                                "
+                            >
+
+                                <%= task.status %>
+
+                            </span>
+
+                        </td>
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div
+                                class="
+                                d-flex
+                                gap-2
+                                flex-wrap
+                                "
+                            >
+
+                                <!-- VIEW -->
+
+                                <a
+                                    href="/task/<%= task.id %>"
+                                    class="
+                                    btn
+                                    view-btn
+                                    "
+                                >
+
+                                    View
+
+                                </a>
+
+                                <!-- EDIT -->
+
+                                <a
+                                    href="/task/edit/<%= task.id %>"
+                                    class="
+                                    btn
+                                    btn-outline-primary
+                                    rounded-4
+                                    "
+                                >
+
+                                    Edit
+
+                                </a>
+
+                                <!-- DONE -->
+
+                                <% if(task.status !== "Completed"){ %>
+
+                                <form
+                                    action="/task/complete/<%= task.id %>"
+                                    method="POST"
+                                >
+
+                                    <button
+                                        class="
+                                        btn
+                                        btn-success
+                                        rounded-4
+                                        "
+                                    >
+
+                                        Done
+
+                                    </button>
+
+                                </form>
+
+                                <% } %>
+
+                                <!-- DELETE -->
+
+                                <form
+                                    action="/task/delete/<%= task.id %>"
+                                    method="POST"
+                                >
+
+                                    <button
+                                        class="
+                                        btn
+                                        btn-outline-danger
+                                        rounded-4
+                                        "
+                                    >
+
+                                        Delete
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    <% }) %>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <% } %>
+
+        </section>
+
+    </main>
 
     <%- include("partials/footer") %>
 
