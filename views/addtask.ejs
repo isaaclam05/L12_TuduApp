@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -36,68 +37,99 @@
 
     <%- include("partials/navbar") %>
 
-    <main class="container-custom">
+    <main class="page-wrapper">
 
-        <!-- PAGE HEADER -->
+        <!-- HERO -->
 
-        <section class="text-center mt-5 mb-5">
+        <section class="hero-container task-hero">
 
-            <h1
-                class="
-                fw-bold
-                mb-2
-                "
-                style="
-                font-size:3rem;
-                "
+            <img
+                src="images/hero-bg3.jpg"
+                class="hero-bg"
+                alt="Task Form"
             >
 
-                <%= task ? "Edit Task" : "Create New Task" %>
+            <div class="hero-overlay"></div>
 
-            </h1>
+            <div class="hero-content">
 
-            <p class="text-secondary">
+                <h1>
 
-                <%= task
-                ? "Update your task details."
-                : "Organize your productivity and stay on track."
-                %>
+                    <%= task
+                    ? "Edit Your Task."
+                    : "Create New Task."
+                    %>
 
-            </p>
+                    <br>
+
+                    Stay Organized.
+
+                </h1>
+
+                <p>
+
+                    <%= task
+                    ? "Update your task details professionally and stay on track."
+                    : "Create and organize your tasks in one modern workspace."
+                    %>
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="/tasks"
+                        class="btn-primary-custom"
+                    >
+
+                        <i class="bi bi-grid"></i>
+                        View Tasks
+
+                    </a>
+
+                </div>
+
+            </div>
 
         </section>
 
-        <!-- FORM CARD -->
+        <!-- FORM -->
 
-        <section
-            class="
-            card-ui
-            p-5
-            mx-auto
-            "
-            style="
-            max-width:950px;
-            "
-        >
+        <section class="dashboard-card form-card-pro">
+
+            <div class="section-header mb-4">
+
+                <div>
+
+                    <h2 class="section-title">
+
+                        <%= task
+                        ? "Edit Task"
+                        : "Create Task"
+                        %>
+
+                    </h2>
+
+                    <p class="section-subtitle">
+
+                        Fill in the details below.
+
+                    </p>
+
+                </div>
+
+            </div>
 
             <form
-
                 action="<%= task ? `/task/edit/${task.id}` : '/add-task' %>"
-
                 method="POST"
             >
 
                 <!-- TITLE -->
 
-                <div class="mb-4">
+                <div class="form-group-modern">
 
-                    <label
-                        class="
-                        form-label
-                        fw-semibold
-                        mb-2
-                        "
-                    >
+                    <label>
 
                         Task Title
 
@@ -106,12 +138,9 @@
                     <input
                         type="text"
                         name="title"
-                        class="
-                        form-control
-                        modern-input
-                        "
-                        placeholder="Enter task title"
                         required
+                        class="modern-input-pro"
+                        placeholder="Enter task title"
                         value="<%= task ? task.title : '' %>"
                     >
 
@@ -119,15 +148,9 @@
 
                 <!-- DESCRIPTION -->
 
-                <div class="mb-4">
+                <div class="form-group-modern">
 
-                    <label
-                        class="
-                        form-label
-                        fw-semibold
-                        mb-2
-                        "
-                    >
+                    <label>
 
                         Description
 
@@ -135,31 +158,21 @@
 
                     <textarea
                         name="description"
-                        rows="5"
-                        class="
-                        form-control
-                        modern-input
-                        "
+                        class="modern-input-pro modern-textarea"
                         placeholder="Describe your task"
                     ><%= task ? task.description : '' %></textarea>
 
                 </div>
 
-                <!-- ROW -->
+                <!-- GRID -->
 
-                <div class="row g-4">
+                <div class="form-grid-pro">
 
                     <!-- DATE -->
 
-                    <div class="col-lg-4">
+                    <div class="form-group-modern">
 
-                        <label
-                            class="
-                            form-label
-                            fw-semibold
-                            mb-2
-                            "
-                        >
+                        <label>
 
                             Due Date
 
@@ -168,10 +181,7 @@
                         <input
                             type="date"
                             name="dueDate"
-                            class="
-                            form-control
-                            modern-input
-                            "
+                            class="modern-input-pro"
                             value="<%= task ? task.dueDate : '' %>"
                         >
 
@@ -179,15 +189,9 @@
 
                     <!-- PRIORITY -->
 
-                    <div class="col-lg-4">
+                    <div class="form-group-modern">
 
-                        <label
-                            class="
-                            form-label
-                            fw-semibold
-                            mb-2
-                            "
-                        >
+                        <label>
 
                             Priority
 
@@ -195,37 +199,28 @@
 
                         <select
                             name="priority"
-                            class="
-                            form-select
-                            modern-input
-                            "
+                            class="modern-input-pro"
                         >
 
                             <option
                                 value="Low"
                                 <%= task?.priority === "Low" ? "selected" : "" %>
                             >
-
                                 Low
-
                             </option>
 
                             <option
                                 value="Medium"
                                 <%= !task || task.priority === "Medium" ? "selected" : "" %>
                             >
-
                                 Medium
-
                             </option>
 
                             <option
                                 value="High"
                                 <%= task?.priority === "High" ? "selected" : "" %>
                             >
-
                                 High
-
                             </option>
 
                         </select>
@@ -234,15 +229,9 @@
 
                     <!-- CATEGORY -->
 
-                    <div class="col-lg-4">
+                    <div class="form-group-modern">
 
-                        <label
-                            class="
-                            form-label
-                            fw-semibold
-                            mb-2
-                            "
-                        >
+                        <label>
 
                             Category
 
@@ -251,10 +240,7 @@
                         <input
                             type="text"
                             name="category"
-                            class="
-                            form-control
-                            modern-input
-                            "
+                            class="modern-input-pro"
                             placeholder="e.g School"
                             value="<%= task ? task.category : '' %>"
                         >
@@ -265,25 +251,14 @@
 
                 <!-- BUTTONS -->
 
-                <div
-                    class="
-                    d-flex
-                    gap-3
-                    mt-5
-                    flex-wrap
-                    "
-                >
-
-                    <!-- SUBMIT -->
+                <div class="task-buttons-pro">
 
                     <button
                         type="submit"
-                        class="
-                        btn
-                        add-btn
-                        px-5
-                        "
+                        class="task-action-btn btn-create-task btn-primary-custom"
                     >
+
+                        <i class="bi bi-check-circle"></i>
 
                         <%= task
                         ? "Update Task"
@@ -292,18 +267,12 @@
 
                     </button>
 
-                    <!-- CANCEL -->
-
                     <a
                         href="/tasks"
-                        class="
-                        btn
-                        btn-light
-                        rounded-4
-                        px-4
-                        "
+                        class="task-action-btn btn-cancel-task"
                     >
 
+                        <i class="bi bi-arrow-left"></i>
                         Cancel
 
                     </a>
@@ -319,4 +288,5 @@
     <%- include("partials/footer") %>
 
 </body>
+
 </html>

@@ -1,100 +1,78 @@
-<nav class="custom-navbar">
+<nav class="navbar navbar-expand-lg navbar-custom">
 
-    <div class="nav-container">
+    <div class="container-fluid nav-wrapper">
 
-        <!-- LEFT -->
+        <!-- LOGO -->
 
         <a
             href="/"
-            class="
-            logo-wrap
-            "
+            class="logo-section text-decoration-none"
         >
 
-            <div class="logo-icon">
+            <div class="logo-circle">
 
-                <i
-                    class="
-                    bi
-                    bi-check2-circle
-                    "
-                ></i>
+                <i class="bi bi-check2-circle"></i>
 
             </div>
 
             <div>
 
-                <div class="logo-text">
-
+                <h2 class="logo-title">
                     Tudu
+                </h2>
 
-                </div>
-
-                <small
-                    class="
-                    text-secondary
-                    "
-                >
-
-                    Productivity App
-
-                </small>
+                <p class="logo-subtitle">
+                    Smart Task Tracker
+                </p>
 
             </div>
 
         </a>
 
-        <!-- RIGHT -->
+        <!-- HAMBURGER -->
 
-        <div class="nav-menu">
+        <button
+            class="navbar-toggler border-0 shadow-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
 
-            <!-- DASHBOARD -->
+            <i class="bi bi-list fs-2"></i>
 
-            <a
-                href="/"
-                class="
-                nav-link-custom
-                "
-            >
+        </button>
 
-                Dashboard
+        <!-- MENU -->
 
-            </a>
+        <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarMenu"
+        >
 
-            <!-- TASKS -->
+            <div class="nav-center">
 
-            <a
-                href="/tasks"
-                class="
-                nav-link-custom
-                "
-            >
+                <a
+                    href="/"
+                    class="nav-item"
+                >
+                    Dashboard
+                </a>
 
-                Tasks
+                <a
+                    href="/tasks"
+                    class="nav-item"
+                >
+                    Tasks
+                </a>
 
-            </a>
+                <a
+                    href="/add-task"
+                    class="nav-item nav-btn"
+                >
+                    Add Task
+                </a>
 
-            <!-- ADD -->
-
-            <a
-                href="/add-task"
-                class="
-                btn
-                add-btn
-                "
-            >
-
-                <i
-                    class="
-                    bi
-                    bi-plus-lg
-                    me-2
-                    "
-                ></i>
-
-                Add Task
-
-            </a>
+            </div>
 
         </div>
 

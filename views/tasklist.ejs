@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -32,142 +33,172 @@
 
     <%- include("partials/navbar") %>
 
-    <main class="container-custom">
+    <main class="page-wrapper">
 
-        <!-- HEADER -->
+        <!-- HERO -->
 
-        <section class="text-center mt-5 mb-5">
+        <section class="hero-container task-hero">
 
-            <h1
-                class="
-                fw-bold
-                mb-2
-                "
-                style="
-                font-size:3rem;
-                "
+            <img
+                src="images/hero-bg2.jpg"
+                class="hero-bg"
+                alt="Task Dashboard"
             >
 
-                Manage Your Tasks
+            <div class="hero-overlay"></div>
 
-            </h1>
+            <div class="hero-content">
 
-            <p class="text-secondary">
+                <h1>
 
-                Organize and manage
-                productivity.
+                    Manage Tasks.
+                    <br>
+                    Stay Productive.
+                    <br>
+                    Achieve More.
 
-            </p>
+                </h1>
+
+                <p>
+
+                    Track, edit and organize all your
+                    productivity tasks in one place.
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="/add-task"
+                        class="btn-primary-custom"
+                    >
+
+                        <i class="bi bi-plus-lg"></i>
+                        Add Task
+
+                    </a>
+
+                </div>
+
+            </div>
 
         </section>
 
-        <!-- SEARCH -->
+        <!-- SEARCH & FILTER -->
 
-        <section
-            class="
-            card-ui
-            mb-4
-            "
-        >
+        <section class="dashboard-card recent-task-card mb-4">
 
             <form
                 action="/tasks"
                 method="GET"
             >
 
-                <div
-                    class="
-                    row
-                    g-3
-                    align-items-center
-                    "
-                >
+                <div class="advanced-filter-grid">
 
-                    <!-- SEARCH -->
+                    <div class="modern-search">
 
-                    <div class="col-lg-8">
+                        <i class="bi bi-search"></i>
 
-                        <div
-                            class="
-                            position-relative
-                            "
+                        <input
+                            type="text"
+                            name="search"
+                            value="<%= search %>"
+                            placeholder="Search task name..."
                         >
-
-                            <i
-                                class="
-                                bi
-                                bi-search
-                                position-absolute
-                                "
-                                style="
-                                top:50%;
-                                left:22px;
-                                transform:translateY(-50%);
-                                color:#64748B;
-                                "
-                            ></i>
-
-                            <input
-                                type="text"
-                                name="search"
-                                value="<%= search %>"
-                                class="
-                                form-control
-                                search-input
-                                "
-                                placeholder="Search tasks..."
-                            >
-
-                        </div>
 
                     </div>
 
-                    <!-- FILTER -->
+                    <select
+                        name="priority"
+                        class="modern-select"
+                    >
 
-                    <div class="col-lg-4">
+                        <option value="All">
+                            All Priority
+                        </option>
 
-                        <select
-                            name="filter"
-                            class="
-                            form-select
-                            filter-select
-                            "
+                        <option
+                            value="High"
+                            <%= priority === "High" ? "selected" : "" %>
+                        >
+                            High
+                        </option>
+
+                        <option
+                            value="Medium"
+                            <%= priority === "Medium" ? "selected" : "" %>
+                        >
+                            Medium
+                        </option>
+
+                        <option
+                            value="Low"
+                            <%= priority === "Low" ? "selected" : "" %>
+                        >
+                            Low
+                        </option>
+
+                    </select>
+
+                    <select
+                        name="status"
+                        class="modern-select"
+                    >
+
+                        <option value="All">
+                            All Status
+                        </option>
+
+                        <option
+                            value="Pending"
+                            <%= status === "Pending" ? "selected" : "" %>
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="Completed"
+                            <%= status === "Completed" ? "selected" : "" %>
+                        >
+                            Completed
+                        </option>
+
+                        <option
+                            value="Overdue"
+                            <%= status === "Overdue" ? "selected" : "" %>
+                        >
+                            Overdue
+                        </option>
+
+                    </select>
+
+                    <input
+                        type="date"
+                        name="dueDate"
+                        class="modern-date"
+                        value="<%= dueDate %>"
+                    >
+
+                    <div class="filter-buttons">
+
+                        <button
+                            type="submit"
+                            class="btn-filter btn-primary-custom"
                         >
 
-                            <option value="All">
+                            <i class="bi bi-funnel-fill"></i>
+                            Apply
 
-                                All Tasks
+                        </button>
 
-                            </option>
+                        <a
+                            href="/tasks"
+                            class="btn-reset"
+                        >
 
-                            <option
-                                value="Pending"
-                                <%= filter === "Pending" ? "selected" : "" %>
-                            >
+                            Reset
 
-                                Pending
-
-                            </option>
-
-                            <option
-                                value="Completed"
-                                <%= filter === "Completed" ? "selected" : "" %>
-                            >
-
-                                Completed
-
-                            </option>
-
-                            <option
-                                value="Overdue"
-                                <%= filter === "Overdue" ? "selected" : "" %>
-                            >
-
-                                Overdue
-
-                            </option>
-
-                        </select>
+                        </a>
 
                     </div>
 
@@ -179,304 +210,222 @@
 
         <!-- TASK TABLE -->
 
-        <section class="card-ui">
+        <section class="dashboard-card recent-task-card">
 
-            <div
-                class="
-                d-flex
-                justify-content-between
-                align-items-center
-                mb-4
-                "
-            >
+            <div class="section-header">
 
-                <h3 class="fw-bold">
+                <div>
 
-                    All Tasks
+                    <h2 class="section-title">
 
-                </h3>
+                        All Tasks
 
-                <a
-                    href="/add-task"
-                    class="
-                    btn
-                    add-btn
-                    "
-                >
+                    </h2>
 
-                    + Add Task
+                    <p class="section-subtitle">
 
-                </a>
+                        <%= taskList.length %> tasks available
+
+                    </p>
+
+                </div>
 
             </div>
 
             <% if(taskList.length === 0){ %>
 
-            <!-- EMPTY -->
+                <div class="empty-state-pro">
 
-            <div
-                class="
-                text-center
-                py-5
-                "
-            >
+                    <div class="empty-icon">
 
-                <i
-                    class="
-                    bi
-                    bi-clipboard-x
-                    "
-                    style="
-                    font-size:4rem;
-                    color:#CBD5E1;
-                    "
-                ></i>
+                        <i class="bi bi-folder-x"></i>
 
-                <h3
-                    class="
-                    fw-bold
-                    mt-3
-                    "
-                >
+                    </div>
 
-                    No Tasks Found
+                    <h3>
+                        No Tasks Found
+                    </h3>
 
-                </h3>
+                    <p>
+                        Start by creating your first task.
+                    </p>
 
-                <p class="text-secondary">
+                    <a
+                        href="/add-task"
+                        class="btn-primary-custom"
+                    >
 
-                    Start by adding
-                    your first task 🚀
+                        <i class="bi bi-plus-lg"></i>
+                        Add Task
 
-                </p>
+                    </a>
 
-                <a
-                    href="/add-task"
-                    class="
-                    btn
-                    add-btn
-                    mt-3
-                    "
-                >
-
-                    Add Task
-
-                </a>
-
-            </div>
+                </div>
 
             <% } else { %>
 
-            <div class="table-responsive">
+                <div class="recent-task-wrapper">
 
-                <table class="task-table">
+                    <table class="professional-table">
 
-                    <thead>
+                        <thead>
 
-                        <tr>
+                            <tr>
 
-                            <th>Task</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                                <th>Task</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Actions</th>
 
-                        </tr>
+                            </tr>
 
-                    </thead>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                    <% taskList.forEach(task => { %>
+                            <% taskList.forEach(task => { %>
 
-                    <tr>
+                                <tr>
 
-                        <!-- TASK -->
+                                    <td>
 
-                        <td>
+                                        <div class="task-main">
 
-                            <div
-                                class="
-                                task-title
-                                "
-                            >
+                                            <div class="task-dot"></div>
 
-                                <%= task.title %>
+                                            <div>
 
-                            </div>
+                                                <div class="task-title">
+                                                    <%= task.title %>
+                                                </div>
 
-                            <div
-                                class="
-                                task-description
-                                "
-                            >
+                                                <div class="task-description">
+                                                    <%= task.description || "No description available" %>
+                                                </div>
 
-                                <%= task.description || "No description" %>
+                                            </div>
 
-                            </div>
+                                        </div>
 
-                        </td>
+                                    </td>
 
-                        <!-- CATEGORY -->
+                                    <td>
 
-                        <td>
+                                        <span class="category-pill">
+                                            <%= task.category || "General" %>
+                                        </span>
 
-                            <span
-                                class="
-                                tag
-                                blue-tag
-                                "
-                            >
+                                    </td>
 
-                                <%= task.category %>
+                                    <td>
 
-                            </span>
+                                        <span class="priority-pill <%= task.priority ? task.priority.toLowerCase() : 'default' %>">
 
-                        </td>
+                                            <%= task.priority || "None" %>
 
-                        <!-- PRIORITY -->
+                                        </span>
 
-                        <td>
+                                    </td>
 
-                            <span
-                                class="
-                                priority
-                                <%= task.priority.toLowerCase() %>
-                                "
-                            >
+                                    <td>
 
-                                <%= task.priority %>
+                                        <span class="status-pill <%= task.status ? task.status.toLowerCase().replace(/\s+/g, '-') : 'default' %>">
 
-                            </span>
+                                            <%= task.status || "Unknown" %>
 
-                        </td>
+                                        </span>
 
-                        <!-- DATE -->
+                                    </td>
 
-                        <td>
+                                    <td>
 
-                            <%= task.dueDate || "No date" %>
+                                        <span class="date-cell">
 
-                        </td>
+                                            <i class="bi bi-calendar3"></i>
 
-                        <!-- STATUS -->
+                                            <%= task.dueDate || "No Date" %>
 
-                        <td>
+                                        </span>
 
-                            <span
-                                class="
-                                status
-                                <%= task.status.toLowerCase() %>
-                                "
-                            >
+                                    </td>
 
-                                <%= task.status %>
+                                    <td>
 
-                            </span>
+                                        <div class="action-buttons">
 
-                        </td>
+                                            <a
+                                                href="/task/<%= task.id %>"
+                                                class="task-btn btn-view"
+                                            >
 
-                        <!-- ACTIONS -->
+                                                <i class="bi bi-eye"></i>
+                                                View
 
-                        <td>
+                                            </a>
 
-                            <div
-                                class="
-                                d-flex
-                                gap-2
-                                flex-wrap
-                                "
-                            >
+                                            <a
+                                                href="/task/edit/<%= task.id %>"
+                                                class="task-btn btn-edit"
+                                            >
 
-                                <!-- VIEW -->
+                                                <i class="bi bi-pencil-square"></i>
+                                                Edit
 
-                                <a
-                                    href="/task/<%= task.id %>"
-                                    class="
-                                    btn
-                                    view-btn
-                                    "
-                                >
+                                            </a>
 
-                                    View
+                                            <% if(task.status !== "Completed"){ %>
 
-                                </a>
+                                                <form
+                                                    action="/task/complete/<%= task.id %>"
+                                                    method="POST"
+                                                >
 
-                                <!-- EDIT -->
+                                                    <button
+                                                        class="task-btn btn-complete"
+                                                        type="submit"
+                                                    >
 
-                                <a
-                                    href="/task/edit/<%= task.id %>"
-                                    class="
-                                    btn
-                                    btn-outline-primary
-                                    rounded-4
-                                    "
-                                >
+                                                        <i class="bi bi-check-circle"></i>
+                                                        Complete
 
-                                    Edit
+                                                    </button>
 
-                                </a>
+                                                </form>
 
-                                <!-- DONE -->
+                                            <% } %>
 
-                                <% if(task.status !== "Completed"){ %>
+                                            <form
+                                                action="/task/delete/<%= task.id %>"
+                                                method="POST"
+                                            >
 
-                                <form
-                                    action="/task/complete/<%= task.id %>"
-                                    method="POST"
-                                >
+                                                <button
+                                                    class="task-btn btn-delete"
+                                                    type="submit"
+                                                >
 
-                                    <button
-                                        class="
-                                        btn
-                                        btn-success
-                                        rounded-4
-                                        "
-                                    >
+                                                    <i class="bi bi-trash3"></i>
+                                                    Delete
 
-                                        Done
+                                                </button>
 
-                                    </button>
+                                            </form>
 
-                                </form>
+                                        </div>
 
-                                <% } %>
+                                    </td>
 
-                                <!-- DELETE -->
+                                </tr>
 
-                                <form
-                                    action="/task/delete/<%= task.id %>"
-                                    method="POST"
-                                >
+                            <% }) %>
 
-                                    <button
-                                        class="
-                                        btn
-                                        btn-outline-danger
-                                        rounded-4
-                                        "
-                                    >
+                        </tbody>
 
-                                        Delete
+                    </table>
 
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                    <% }) %>
-
-                    </tbody>
-
-                </table>
-
-            </div>
+                </div>
 
             <% } %>
 
@@ -487,4 +436,5 @@
     <%- include("partials/footer") %>
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -32,63 +33,40 @@
 
     <%- include("partials/navbar") %>
 
-    <main class="container-custom">
+    <main class="page-wrapper">
 
         <!-- HEADER -->
 
-        <section
-            class="
-            d-flex
-            justify-content-between
-            align-items-center
-            flex-wrap
-            gap-3
-            mt-5
-            mb-4
-            "
-        >
+        <section class="dashboard-card task-detail-header mb-4">
 
-            <div>
+            <div class="task-detail-top">
 
-                <p
-                    class="
-                    text-primary
-                    fw-semibold
-                    mb-2
-                    "
-                >
+                <div>
 
-                    Task Details
+                    <span class="header-tag">
 
-                </p>
+                        Task Details
 
-                <h1
-                    class="
-                    fw-bold
-                    "
-                    style="
-                    font-size:3rem;
-                    "
-                >
+                    </span>
 
-                    <%= task.title %>
+                    <h1 class="task-detail-title">
 
-                </h1>
+                        <%= task.title %>
 
-            </div>
+                    </h1>
 
-            <!-- STATUS -->
+                    <p class="section-subtitle">
 
-            <div>
+                        View and manage your task
+                        information professionally.
 
-                <span
-                    class="
-                    status
-                    <%= task.status.toLowerCase() %>
-                    "
-                >
+                    </p>
 
-                    <%= task.status %>
+                </div>
+
+                <span class="status-pill <%= task.status ? task.status.toLowerCase().replace(/\s+/g, '-') : 'default' %>">
+
+                    <%= task.status || "Unknown" %>
 
                 </span>
 
@@ -98,183 +76,25 @@
 
         <!-- MAIN CARD -->
 
-        <section class="card-ui p-5">
+        <section class="dashboard-card task-detail-card">
 
             <!-- DESCRIPTION -->
 
-            <div class="mb-5">
+            <div class="detail-section">
 
-                <h4
-                    class="
-                    fw-bold
-                    mb-3
-                    "
-                >
+                <div class="section-header mb-3">
 
-                    Description
+                    <div>
 
-                </h4>
+                        <h2 class="section-title">
 
-                <div
-                    class="
-                    task-description-box
-                    "
-                >
+                            Description
 
-                    <%= task.description || "No description added." %>
+                        </h2>
 
-                </div>
+                        <p class="section-subtitle">
 
-            </div>
-
-            <!-- INFO CARDS -->
-
-            <div class="row g-4">
-
-                <!-- CATEGORY -->
-
-                <div class="col-lg-4">
-
-                    <div
-                        class="
-                        details-card
-                        "
-                    >
-
-                        <div
-                            class="
-                            details-icon
-                            blue-bg
-                            "
-                        >
-
-                            <i
-                                class="
-                                bi
-                                bi-folder2-open
-                                "
-                            ></i>
-
-                        </div>
-
-                        <h5
-                            class="
-                            fw-bold
-                            mt-3
-                            "
-                        >
-
-                            Category
-
-                        </h5>
-
-                        <span
-                            class="
-                            tag
-                            blue-tag
-                            "
-                        >
-
-                            <%= task.category || "General" %>
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- PRIORITY -->
-
-                <div class="col-lg-4">
-
-                    <div
-                        class="
-                        details-card
-                        "
-                    >
-
-                        <div
-                            class="
-                            details-icon
-                            orange-bg
-                            "
-                        >
-
-                            <i
-                                class="
-                                bi
-                                bi-flag
-                                "
-                            ></i>
-
-                        </div>
-
-                        <h5
-                            class="
-                            fw-bold
-                            mt-3
-                            "
-                        >
-
-                            Priority
-
-                        </h5>
-
-                        <span
-                            class="
-                            priority
-                            <%= task.priority.toLowerCase() %>
-                            "
-                        >
-
-                            <%= task.priority %>
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- DATE -->
-
-                <div class="col-lg-4">
-
-                    <div
-                        class="
-                        details-card
-                        "
-                    >
-
-                        <div
-                            class="
-                            details-icon
-                            green-bg
-                            "
-                        >
-
-                            <i
-                                class="
-                                bi
-                                bi-calendar-event
-                                "
-                            ></i>
-
-                        </div>
-
-                        <h5
-                            class="
-                            fw-bold
-                            mt-3
-                            "
-                        >
-
-                            Due Date
-
-                        </h5>
-
-                        <p class="text-secondary">
-
-                            <%= task.dueDate || "No due date" %>
+                            Task overview and notes.
 
                         </p>
 
@@ -282,36 +102,104 @@
 
                 </div>
 
+                <div class="description-box-pro">
+
+                    <%= task.description || "No description added." %>
+
+                </div>
+
             </div>
 
-            <!-- ACTION BUTTONS -->
+            <!-- INFO GRID -->
 
-            <div
-                class="
-                d-flex
-                gap-3
-                flex-wrap
-                mt-5
-                "
-            >
+            <div class="details-grid-pro">
+
+                <!-- CATEGORY -->
+
+                <div class="info-card-pro">
+
+                    <div class="info-icon-pro blue-bg">
+
+                        <i class="bi bi-folder2-open"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Category
+
+                    </h5>
+
+                    <span class="category-pill">
+
+                        <%= task.category || "General" %>
+
+                    </span>
+
+                </div>
+
+                <!-- PRIORITY -->
+
+                <div class="info-card-pro">
+
+                    <div class="info-icon-pro orange-bg">
+
+                        <i class="bi bi-flag"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Priority
+
+                    </h5>
+
+                    <span class="priority-pill <%= task.priority ? task.priority.toLowerCase() : 'default' %>">
+
+                        <%= task.priority || "None" %>
+
+                    </span>
+
+                </div>
+
+                <!-- DUE DATE -->
+
+                <div class="info-card-pro">
+
+                    <div class="info-icon-pro green-bg">
+
+                        <i class="bi bi-calendar-event"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Due Date
+
+                    </h5>
+
+                    <div class="date-cell">
+
+                        <%= task.dueDate || "No due date" %>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="task-buttons-pro">
 
                 <!-- EDIT -->
 
                 <a
                     href="/task/edit/<%= task.id %>"
-                    class="
-                    btn
-                    add-btn
-                    "
+                    class="task-action-btn btn-edit-task"
                 >
 
-                    <i
-                        class="
-                        bi
-                        bi-pencil-square
-                        me-2
-                        "
-                    ></i>
+                    <i class="bi bi-pencil-square"></i>
 
                     Edit Task
 
@@ -321,25 +209,23 @@
 
                 <% if(task.status !== "Completed"){ %>
 
-                <form
-                    action="/task/complete/<%= task.id %>"
-                    method="POST"
-                >
-
-                    <button
-                        class="
-                        btn
-                        btn-success
-                        rounded-4
-                        px-4
-                        "
+                    <form
+                        action="/task/complete/<%= task.id %>"
+                        method="POST"
                     >
 
-                        Complete
+                        <button
+                            class="task-action-btn btn-complete-task"
+                            type="submit"
+                        >
 
-                    </button>
+                            <i class="bi bi-check-circle"></i>
 
-                </form>
+                            Complete
+
+                        </button>
+
+                    </form>
 
                 <% } %>
 
@@ -351,13 +237,11 @@
                 >
 
                     <button
-                        class="
-                        btn
-                        btn-outline-danger
-                        rounded-4
-                        px-4
-                        "
+                        class="task-action-btn btn-delete-task"
+                        type="submit"
                     >
+
+                        <i class="bi bi-trash3"></i>
 
                         Delete
 
@@ -369,13 +253,10 @@
 
                 <a
                     href="/tasks"
-                    class="
-                    btn
-                    btn-light
-                    rounded-4
-                    px-4
-                    "
+                    class="task-action-btn btn-back-task"
                 >
+
+                    <i class="bi bi-arrow-left"></i>
 
                     Back
 
@@ -390,4 +271,5 @@
     <%- include("partials/footer") %>
 
 </body>
+
 </html>

@@ -38,11 +38,14 @@ function getTodayDate() {
         .split("T")[0];
 }
 
-/* AUTO STATUS */
+/* ==========================
+AUTO STATUS
+========================== */
 
 function updateTaskStatus() {
 
-    const today = getTodayDate();
+    const today =
+    getTodayDate();
 
     taskList.forEach(task => {
 
@@ -70,34 +73,21 @@ function updateTaskStatus() {
     });
 }
 
-/* SORT TASKS */
+/* ==========================
+SORT TASKS
+========================== */
 
 function sortTasks() {
 
     taskList.sort((a, b) => {
 
-        /* newest first */
-
-        if (b.id !== a.id) {
-            return b.id - a.id;
-        }
-
-        /* due date */
-
-        if (
-            a.dueDate &&
-            b.dueDate
-        ) {
-
-            return new Date(a.dueDate)
-            - new Date(b.dueDate);
-        }
-
-        return 0;
+        return b.id - a.id;
     });
 }
 
-/* DASHBOARD STATS */
+/* ==========================
+DASHBOARD STATS
+========================== */
 
 function getDashboardStats() {
 
@@ -130,7 +120,7 @@ function getDashboardStats() {
 }
 
 /* ==========================
-HOME
+HOME PAGE
 ========================== */
 
 app.get("/", (
@@ -174,13 +164,19 @@ app.get("/tasks", (
     const search =
     req.query.search || "";
 
-    const filter =
-    req.query.filter || "All";
+    const priority =
+    req.query.priority || "All";
+
+    const status =
+    req.query.status || "All";
+
+    const dueDate =
+    req.query.dueDate || "";
 
     let filteredTasks =
     [...taskList];
 
-    /* SEARCH */
+    /* SEARCH TASK NAME */
 
     if (search.trim()) {
 
@@ -193,32 +189,48 @@ app.get("/tasks", (
             task.title
             .toLowerCase()
             .includes(keyword)
-
-            ||
-
-            (task.description || "")
-            .toLowerCase()
-            .includes(keyword)
-
-            ||
-
-            (task.category || "")
-            .toLowerCase()
-            .includes(keyword)
         );
     }
 
-    /* FILTER */
+    /* PRIORITY FILTER */
 
     if (
-        filter !== "All"
+        priority !==
+        "All"
+    ) {
+
+        filteredTasks =
+        filteredTasks.filter(
+            task =>
+            task.priority ===
+            priority
+        );
+    }
+
+    /* STATUS FILTER */
+
+    if (
+        status !==
+        "All"
     ) {
 
         filteredTasks =
         filteredTasks.filter(
             task =>
             task.status ===
-            filter
+            status
+        );
+    }
+
+    /* DUE DATE FILTER */
+
+    if (dueDate) {
+
+        filteredTasks =
+        filteredTasks.filter(
+            task =>
+            task.dueDate ===
+            dueDate
         );
     }
 
@@ -230,8 +242,9 @@ app.get("/tasks", (
             filteredTasks,
 
             search,
-
-            filter
+            priority,
+            status,
+            dueDate
         }
     );
 });
@@ -281,7 +294,8 @@ app.post(
         title.trim(),
 
         description:
-        description.trim(),
+        description?.trim()
+        || "",
 
         dueDate,
 
@@ -400,7 +414,8 @@ app.post(
         req.body.title.trim();
 
         task.description =
-        req.body.description.trim();
+        req.body.description?.trim()
+        || "";
 
         task.dueDate =
         req.body.dueDate;
@@ -409,7 +424,7 @@ app.post(
         req.body.priority;
 
         task.category =
-        req.body.category.trim()
+        req.body.category?.trim()
         || "General";
     }
 
@@ -508,5 +523,7 @@ SERVER
 
 app.listen(PORT, () => {
 
-    console.log(`Server running: http://localhost:${PORT}`);
+    console.log(
+        `Server running: http://localhost:${PORT}`
+    );
 });
